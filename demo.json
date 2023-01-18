@@ -1,0 +1,124 @@
+{
+  "[H]allway" : {
+    "desc" : "You are in the hallway\r\nthe elevator to all the rooms and on the left is of course the entrance\r\nthrough which you came in.",
+    "action_mask" : 1,
+    "action_msg" : "Testing",
+    "o" : {
+      "[R]FID reader" : {
+        "desc" : "This is the keycard reader for the exit.\nPlease hold your keycard to the reader",
+        "action_mask" : 20,
+        "action_item" : 2,
+        "action_msg" : "The door is now open, please tip the doorman",
+        "action_state" : 2,
+        "state_desc" : "keycard presented"
+      },
+      "Door[m]an" : {
+        "desc" : "The doorman looks friendly.",
+        "visible_acl" : 134,
+        "action_mask" : 12,
+        "action_str1" : "Do you want me to unlock the livingroom for you?",
+        "action_str2" : "yes",
+        "action_msg" : "Here you go",
+        "action_state" : 6,
+        "state_desc" : "tipped the doorman"
+      },
+      "Door[m]an " : {
+        "desc" : "The doorman looks greedy.",
+        "visible_acl" : 6,
+        "action_mask" : 68,
+        "action_acl" : 2,
+        "action_acl_msg" : "Please scan your keycard first",
+        "action_item" : 3,
+        "action_state" : 1,
+        "action_msg" : "Thank you! You are always welcome back.\nPleas allow me to hold the door for you.",
+        "state_desc" : "tipped the doorman"
+      },
+      "[B]ulb" : {
+        "desc" : "This is a vintage lightbulb",
+        "action_mask" : 20,
+        "item_nr" : 1
+      },
+      "[L]ivingroom" : {
+        "desc" : "This is the livingroom, it's kinda dark in the back",
+        "action_mask" : 1,
+        "open_acl" : 6,
+        "open_acl_msg" : "The door to the livingroom is locked, \nplease have it unlocked first",
+        "o" : {
+          "[L]amp" : {
+            "desc" : "There is an old standing lamp in the corner of the room",
+            "action_mask" : 20,
+            "action_item" : 1,
+            "action_msg" : "You fitted the lightbulb",
+            "action_state" : 3,
+            "state_desc" : "bulb fitted to lamp"
+          },
+          "[W]allswitch" : {
+            "desc" : "There is a lightswitch on the wall",
+            "action_mask" : 20,
+            "action_acl" : 3,
+            "action_acl_msg" : "There is no lightbulb in the lamp",
+            "action_state" : 4,
+            "action_msg" : "The light switches on, you can now see the whole room",
+            "state_desc" : "turned on the light"
+          },
+          "[S]afe " : {
+            "visible_acl" : 4,
+            "action_mask" : 18,
+            "action_str1" : "Please enter the code? ",
+            "action_str2" : "1337",
+            "action_msg" : "You entered the correct code for the safe!",
+            "action_state" : 5,
+            "state_desc" : "You entered the correct code for the safe!",
+            "open_acl" : 5,
+            "open_acl_msg" : "The safe is closed, please enter the code.",
+            "desc" : "You opened the safe, now look what you found!",
+            "o" : {
+              "[F]ive dollar bill" : {
+                "desc" : "An old 5 dollar bill",
+                "action_mask" : 20,
+                "item_nr" : 3
+              },
+              "[B]ook" : {
+                "desc" : "Nice book",
+                "action_mask" : 6,
+                "o" : {
+                  "[K]eycard" : {
+                    "desc" : "The RFID card of a guest",
+                    "action_mask" : 20,
+                    "item_nr" : 2
+                  }
+                }
+              }
+            }
+          },
+          "[P]ost-it" : {
+            "visible_acl" : 4,
+            "desc" : "There is a post-it attached to an old safe",
+            "action_mask" : 36,
+            "action_msg" : "1337"
+          }
+        }
+      }
+    }
+  },
+  "[d]ummy" : {
+    "desc" : "Dummy",
+    "effects" : 0,
+    "visible_acl" : 127,
+    "action_mask" : 0,
+    "open_acl" : 0,
+    "open_acl_msg" : "",
+    "open_acl_msg_effects" : 0,
+    "action_acl" : 0,
+    "action_acl_msg" : "",
+    "action_item" : 0,
+    "action_str1" : "",
+    "action_str2" : "",
+    "action_msg" : "",
+    "action_msg_effects" : 0,
+    "action_state" : 0,
+    "state_desc" : "",
+    "item_nr" : 0,
+    "o" : {}
+  }
+}
