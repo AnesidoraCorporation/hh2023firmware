@@ -158,7 +158,7 @@ if bootstate == 0xFF or errorstate > 0:
         print("Entered incorrect value.")
         ledRGB('RED', not runningonbattery)
 
-    for i in range(3):
+    for i in range(2):
         set_state(errorstate,0b0001,0,0,1)
         time.sleep_ms(200)
         set_state(olderrorstate,0b0010,0,0,0)
@@ -250,6 +250,9 @@ if errorstate > 0 or bootstate == 5:
             elif inputstring == "h":
                 pass
             else:
+                print("The challenge-response game. The challenge is in the bottom row")
+                print("Put in your answer using the A0 to A7, the game continues when you get it right")
+                print("If you require a hint, press h\n")
                 print(f"Challenge No: {challengecounter}, Attempt: {attemptcounter}, Challenge: {randno:08b}\n")
 
 
