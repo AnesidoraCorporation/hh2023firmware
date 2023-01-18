@@ -58,6 +58,10 @@ if btns[4] == 1:
     eeprom.writeto_mem(80, 1, b'\x00',addrsize=eepromsize)
     time.sleep_ms(10)
     eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
+    for i in range(32):
+        time.sleep_ms(10)
+        eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)
+    
     ledRGB([0,65500,0], not runningonbattery)
     time.sleep_ms(1000)
     if debug == True:
@@ -625,7 +629,7 @@ The instructions are:
         #ledG.value(-btns[2])
 
 if bootstate == 7:
-    game.game()
+    game.game(eeprom)
 
 if bootstate == 42 or bootstate == 5:
     if runningonbattery != True:

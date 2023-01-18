@@ -320,7 +320,11 @@ def invalid(eeprom):
 
 # status bits that will be used for the game logic
 # bit 0 is not used for code/memory efficiency, status of bit 0 is considered True
-game_state = [0 for i in range(status_bits//8)]
+game_state = bytearray(status_bits//8)
+
+def read_state(eepromstate):
+    return eepromstate.readfrom_mem(80,64,32,addrsize=8)
+
 offering   = -1
 
 # Some state bits are used from outside the game, these are:
@@ -357,7 +361,7 @@ def get_state(num):
 # update_state() updates a status bit
 # The higher order bit is used to either set (0) or reset (1) the
 # status bit. The other bits determine the state number.
-def update_state(num):
+def update_state(num, eepromstate):
     new_state = num & status_bits
     num = num & (status_bits-1)
     byte = num >> 3
@@ -369,6 +373,9 @@ def update_state(num):
         game_state[byte] |= bit
     else:
         game_state[byte] &= (255 - bit)
+    
+    eepromstate.writeto_mem(80,64,game_state,addrsize=8)
+
     return
 
 def check_state(state_num):

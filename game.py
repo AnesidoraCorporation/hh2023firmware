@@ -22,20 +22,22 @@ global current_effects
 
 #args = parser.parse_args()
 
-def game():
+def game(eepromstate):
 
     DEBUG = False
+
+    game_state = read_state(eepromstate)
 
     badge = 0
 
     if badge % 4 == 0:
-        update_state(110)
+        update_state(110,eepromstate)
     elif badge % 4 == 1:
-        update_state(111)
+        update_state(111,eepromstate)
     elif badge % 4 == 2:
-        update_state(112)
+        update_state(112,eepromstate)
     elif badge % 4 == 3:
-        update_state(113)
+        update_state(113,eepromstate)
 
     ### Read the EEPROM data
     #f = pkg_resources.resource_stream(__name__, "hotel.bin")
@@ -127,7 +129,7 @@ def game():
 
         elif cmd == 's':
             if len(inp) > 1:
-                update_state(int(inp[1]))
+                update_state(int(inp[1]),eepromstate)
             print("The game state is now:")
             for i in range(status_bits//8):
                 print("0x{:02X}:{:08b}".format(i,game_state[i]))
@@ -358,7 +360,7 @@ def game():
                                         ((kneelings & 2) << 11) + ((kneelings & 1)) 
                                 answer = answer << (3-person)
                                 print(s(eeprom,'YOURPART') + "{}".format(answer))
-                                update_state(read_byte_field(eeprom,obj_offset,'action_state'))
+                                update_state(read_byte_field(eeprom,obj_offset,'action_state'),eepromstate)
                                 continue
                             else:
                                 print(s(eeprom,'CANTUSEITEM'))
@@ -384,7 +386,7 @@ def game():
                             if unify(read_string_field(eeprom,obj_offset,'action_str2')) != unify(response):
                                 print(s(eeprom,'INCORRECT'))
                                 continue
-                        update_state(read_byte_field(eeprom,obj_offset,'action_state'))
+                        update_state(read_byte_field(eeprom,obj_offset,'action_state'),eepromstate)
                         print("{}".format(read_string_field(eeprom,obj_offset,'action_msg')))
 
             
@@ -417,7 +419,7 @@ def game():
                         if msg != "":
                             print(msg)
                             continue
-                        update_state(read_byte_field(eeprom,obj_offset,'action_state'))
+                        update_state(read_byte_field(eeprom,obj_offset,'action_state'),eepromstate)
                         print("{}".format(read_string_field(eeprom,obj_offset,'action_msg')))
                         print(s(eeprom,'NOWCARRING') + "{}".format(obj_name))
                         inventory.append([obj_id,obj_name])
