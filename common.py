@@ -1,5 +1,6 @@
 import literals
 from lit_offsets import *
+import time
 
 # these definitions are used for importing the JSON data. I also
 # use them as constants in game.py, but in the FW source-code, they
@@ -323,7 +324,8 @@ def invalid(eeprom):
 game_state = bytearray(status_bits//8)
 
 def read_state(eepromstate):
-    return eepromstate.readfrom_mem(80,64,32,addrsize=8)
+    for i in range(status_bits//8):
+        game_state[i] = eepromstate.readfrom_mem(80,64+i,1,addrsize=8)[0]
 
 offering   = -1
 
@@ -374,7 +376,13 @@ def update_state(num, eepromstate):
     else:
         game_state[byte] &= (255 - bit)
     
-    eepromstate.writeto_mem(80,64,game_state,addrsize=8)
+    tmp = bytearray(1)
+
+    for i in range(status_bits//8):
+        tmp[0] = game_state[i]
+        eepromstate.writeto_mem(80,64+i,tmp,addrsize=8)
+        time.sleep_ms(10)
+    #print("written something to eeprom")
 
     return
 

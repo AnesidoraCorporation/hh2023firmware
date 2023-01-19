@@ -53,11 +53,11 @@ if debug == True:
     print(btns)
 
 if btns[4] == 1:
-    eeprom.writeto_mem(80, 0, b'\xFF',addrsize=eepromsize)
+    #eeprom.writeto_mem(80, 0, b'\xFF',addrsize=eepromsize)
     time.sleep_ms(10)
-    eeprom.writeto_mem(80, 1, b'\x00',addrsize=eepromsize)
+    #eeprom.writeto_mem(80, 1, b'\x00',addrsize=eepromsize)
     time.sleep_ms(10)
-    eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
+    #eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
     for i in range(32):
         time.sleep_ms(10)
         eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)

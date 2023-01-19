@@ -26,7 +26,7 @@ def game(eepromstate):
 
     DEBUG = False
 
-    game_state = read_state(eepromstate)
+    read_state(eepromstate)
 
     badge = 0
 
@@ -65,11 +65,17 @@ def game(eepromstate):
         if DEBUG:
             print("\nloc = {}".format(loc))
             print("effects = {}".format(current_effects))
-            print("state = {}".format(game_state))
+            print("state = ",end="")
+            for i in game_state:
+                print("{:08b},".format(i),end="")
+            print()
             print("action_mask = {}".format(loc_action_mask))
             print("inventory = {}".format(inventory))
             print("offset = 0x{:04X}".format(loc_offset))
             print("children = {}".format(loc_children))
+            print("eepromstate = ", end="")
+            for i in eepromstate.readfrom_mem(80,64,16,addrsize=8):
+                print("{:08b},".format(i),end="")
             print()
     ####################
     # ^^  to here   ^^ #
