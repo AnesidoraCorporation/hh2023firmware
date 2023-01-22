@@ -24,22 +24,21 @@ global current_effects
 
 #args = parser.parse_args()
 
-def game(eepromstate):
+def game(eepromstate, badge):
 
     DEBUG = False
 
     read_state(eepromstate)
 
-    badge = 0
-
-    if badge % 4 == 0:
-        update_state(110,eepromstate)
-    elif badge % 4 == 1:
-        update_state(111,eepromstate)
-    elif badge % 4 == 2:
-        update_state(112,eepromstate)
-    elif badge % 4 == 3:
-        update_state(113,eepromstate)
+    if badge != 0:
+        if badge % 4 == 0:
+            update_state(110,eepromstate)
+        elif badge % 4 == 1:
+            update_state(111,eepromstate)
+        elif badge % 4 == 2:
+            update_state(112,eepromstate)
+        elif badge % 4 == 3:
+            update_state(113,eepromstate)
 
     ### Read the EEPROM data
     #f = pkg_resources.resource_stream(__name__, "hotel.bin")
@@ -81,6 +80,7 @@ def game(eepromstate):
         # The effects should be triggered, so no need to print them I think, unless we want to
         # maybe print the sound effect for those that do not use earplugs ;-)
         if current_effects != 0:
+            print("There is an effect:")
             print(s(eeprom,'SPACE') + "{}".format(effects(current_effects)))
         else:
             pass

@@ -43,8 +43,6 @@ if extradebug == True:
         set_state(i,0,0,0,0)
         time.sleep_ms(200)
 
-
-
 statusled = True
 
 btns = get_buttons()
@@ -52,30 +50,59 @@ btns = get_buttons()
 if debug == True:
     print(btns)
 
-if btns[4] == 1:
+adventuremem = eeprom.readfrom_mem(80, 64, 32, addrsize=eepromsize)
+adventureinit = False
+for i in adventuremem:
+    if i != 255:
+        adventureinit = True
+        break
+
+if adventureinit == False:
+    for i in range(32):
+        time.sleep_ms(10)
+        eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)
+
+
+if btns[4] == 1 or eeprom.readfrom_mem(80, 1, 1, addrsize=eepromsize)[0] == 255:
+    time.sleep_ms(10)
     eeprom.writeto_mem(80, 0, b'\xFF',addrsize=eepromsize)
     time.sleep_ms(10)
     eeprom.writeto_mem(80, 1, b'\x00',addrsize=eepromsize)
     time.sleep_ms(10)
     eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
+    time.sleep_ms(10)
+    eeprom.writeto_mem(80, 43, b'\xFF',addrsize=eepromsize)
     for i in range(32):
         time.sleep_ms(10)
         eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)
     
     ledRGB([0,65500,0], not runningonbattery)
     time.sleep_ms(1000)
-    if debug == True:
-        print("Config reset")
+    print("Config reset")
 
 if btns[3] == 1:
+    time.sleep_ms(10)
+    eeprom.writeto_mem(80, 43, b'\xFF',addrsize=eepromsize)
     for i in range(32):
         time.sleep_ms(10)
         eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)
     
     ledRGB([0,0,65500], not runningonbattery)
     time.sleep_ms(1000)
-    if debug == True:
-        print("Adventure reset")
+    print("Adventure reset")
+
+if btns[2] == 1:
+    ledRGB([65500,65500,65500], not runningonbattery)
+    for i in range(256):
+        time.sleep_ms(10)
+        eeprom.writeto_mem(80, i, b'\xFF',addrsize=eepromsize)
+    
+    
+    time.sleep_ms(10000)
+    print("Total reset")
+    machine.soft_reset()
+
+
 
 bootstate = eeprom.readfrom_mem(80,42,1,addrsize=eepromsize)
 bootstate = bootstate[0]
@@ -655,8 +682,17 @@ if bootstate == 7:
             set_state(0,0,0,0,0)
             time.sleep_ms(100)
     else:
+        if eeprom.readfrom_mem(80, 43, 1, addrsize=eepromsize)[0] == 255:
+            print("Initializing")
+            random.seed()
+            badge = random.randint(1, 254)
+            eeprom.writeto_mem(80, 43, b'\x00',addrsize=eepromsize)
+            time.sleep_ms(1000)
+        else:
+            badge = 0
+
         ledRGB([10000,0,10000], not runningonbattery)
-        game.game(eeprom)
+        game.game(eeprom,badge)
         eeprom.writeto_mem(80, 42, b'\x2A',addrsize=eepromsize)
 
 if bootstate == 42 or bootstate == 5:
@@ -720,7 +756,7 @@ if bootstate == 42 or bootstate == 5:
                 eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
                 validcommand = True
             elif command == '4':
-                print("Setting bootoption for Anesidora OS\n")
+                print("Setting bootoption for Adventure\n")
                 eeprom.writeto_mem(80, 42, b'\x07',addrsize=eepromsize)
                 validcommand = True
             elif command == '5':
