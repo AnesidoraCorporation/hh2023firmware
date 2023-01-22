@@ -53,11 +53,11 @@ if debug == True:
     print(btns)
 
 if btns[4] == 1:
-    #eeprom.writeto_mem(80, 0, b'\xFF',addrsize=eepromsize)
+    eeprom.writeto_mem(80, 0, b'\xFF',addrsize=eepromsize)
     time.sleep_ms(10)
-    #eeprom.writeto_mem(80, 1, b'\x00',addrsize=eepromsize)
+    eeprom.writeto_mem(80, 1, b'\x00',addrsize=eepromsize)
     time.sleep_ms(10)
-    #eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
+    eeprom.writeto_mem(80, 42, b'\xFF',addrsize=eepromsize)
     for i in range(32):
         time.sleep_ms(10)
         eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)
@@ -66,6 +66,16 @@ if btns[4] == 1:
     time.sleep_ms(1000)
     if debug == True:
         print("Config reset")
+
+if btns[3] == 1:
+    for i in range(32):
+        time.sleep_ms(10)
+        eeprom.writeto_mem(80, i+64, b'\x00',addrsize=eepromsize)
+    
+    ledRGB([0,0,65500], not runningonbattery)
+    time.sleep_ms(1000)
+    if debug == True:
+        print("Adventure reset")
 
 bootstate = eeprom.readfrom_mem(80,42,1,addrsize=eepromsize)
 bootstate = bootstate[0]
@@ -137,15 +147,15 @@ if bootstate == 0xFF or errorstate > 0:
 
     if errorcode == 0b10000000:
         errorstate = errorstate & 0b11111110
-    elif errorcode == 0b10101010:
+    elif errorcode == 0b10110100:
         errorstate = errorstate & 0b11111101
-    elif errorcode == 0b11110000:
+    elif errorcode == 0b11101010:
         errorstate = errorstate & 0b11111011
-    elif errorcode == 0b00001111:
+    elif errorcode == 0b01101101:
         errorstate = errorstate & 0b11110111
-    elif errorcode == 0b11001100:
+    elif errorcode == 0b11011101:
         errorstate = errorstate & 0b11101111
-    elif errorcode == 0b11000011:
+    elif errorcode == 0b11010011:
         errorstate = errorstate & 0b11011111
     elif errorcode == 0b10011001:
         errorstate = errorstate & 0b10111111
@@ -251,12 +261,20 @@ if errorstate > 0 or bootstate == 5:
                 print("The challenge-response game. The challenge is in the bottom row")
                 print("Put in your answer using the A0 to A7, the game continues when you get it right")
                 print("If you require a hint, press h\n")
+                if bootstate == 5:
+                    print("To return to the bootmenu, press q\n")
             elif inputstring == "h":
                 pass
+            elif inputstring == "q" and bootstate == 5:
+                print("Resetting bootstate")
+                eeprom.writeto_mem(80, 42, b'\x2A',addrsize=eepromsize)
+                break
             else:
                 print("The challenge-response game. The challenge is in the bottom row")
                 print("Put in your answer using the A0 to A7, the game continues when you get it right")
                 print("If you require a hint, press h\n")
+                if bootstate == 5:
+                    print("To return to the bootmenu, press q\n")
                 print(f"Challenge No: {challengecounter}, Attempt: {attemptcounter}, Challenge: {randno:08b}\n")
 
 
@@ -358,7 +376,7 @@ if errorstate > 0 or bootstate == 5:
                         shiftregister(0)
                         ledRGB('OFF', not runningonbattery)
                         set_state(0,0,0,0,0)
-                        Pin(BAT_ENPIN, Pin.IN) 
+                        #Pin(BAT_ENPIN, Pin.IN) 
                         break
 
                     randno = 0
@@ -380,7 +398,7 @@ ledRGB([65000,0,0], not runningonbattery)
 
 if bootstate == 0xFF:
 
-    print("Starting BFSP, use frontpanel to input code")
+    print("Starting BFSP, use frontpanel to input code. Press ? for help.")
 
     inputstring = ""
     halted = False
@@ -629,7 +647,17 @@ The instructions are:
         #ledG.value(-btns[2])
 
 if bootstate == 7:
-    game.game(eeprom)
+    if runningonbattery:
+        ledRGB([65000,0,0], not runningonbattery)
+        for i in range(50):
+            set_state(0,0,0,0,1)
+            time.sleep_ms(100)
+            set_state(0,0,0,0,0)
+            time.sleep_ms(100)
+    else:
+        ledRGB([10000,0,10000], not runningonbattery)
+        game.game(eeprom)
+        eeprom.writeto_mem(80, 42, b'\x2A',addrsize=eepromsize)
 
 if bootstate == 42 or bootstate == 5:
     if runningonbattery != True:
@@ -645,7 +673,7 @@ if bootstate == 42 or bootstate == 5:
         1. Factory reset
         2. Set name
         3. Boot into BFSP
-        4. Start Anesidora OS\n
+        4. Start Adventure\n
         5. Return to Challenge Response game\n""")
 
             command = input("?>")
@@ -675,10 +703,15 @@ if bootstate == 42 or bootstate == 5:
                         validcommand = True
                     else:
                         print(f"Name is: {username}")
+                        tmp = bytearray(1)
                         for i in range(32):
                             eeprom.writeto_mem(80, i+2, b'\xFF',addrsize=eepromsize)
                             time.sleep_ms(10)
-                        eeprom.writeto_mem(80,2,username)
+                        for i in range(len(username)):
+                            username = bytes(username, 'ascii')
+                            tmp[0] = username[i]
+                            eeprom.writeto_mem(80,i+2,tmp,addrsize=eepromsize)
+                            time.sleep_ms(10)
                         validcommand = True
                         time.sleep_ms(10)
 

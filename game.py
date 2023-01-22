@@ -64,6 +64,7 @@ def game(eepromstate):
         print_tree(eeprom,[],[-1],0,inventory)
 
     inputstring = ""
+    initgame = True
 
     while True:
         
@@ -95,7 +96,8 @@ def game(eepromstate):
         if len(inputstring) > 100:
             print("Input too long!")
             inputstring = ""
-        elif len(inputstring) > 0 and inputstring[-1] == "\n":
+        elif (len(inputstring) > 0 and inputstring[-1] == "\n") or initgame == True:
+            initgame = False
             
             inp = inputstring[:-1]
             inputstring = ""
@@ -105,7 +107,7 @@ def game(eepromstate):
             else:
 
                 if inp == 'IDDQD':
-                    exit()
+                    break
 
 
                 inp = inp.lower().split()
@@ -160,7 +162,7 @@ def game(eepromstate):
 
                 elif cmd == 'q':
                     print(s(eeprom,'QUIT'))
-                    exit()
+                    break
 
 
                 elif cmd == 'l':
