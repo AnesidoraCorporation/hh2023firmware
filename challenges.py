@@ -19,6 +19,20 @@ def game_invert(c):
 
     return c ^ 255
 
+#lshift - shifted left 2 places
+def game_lshift(c):
+    if c == 0:
+        return random.randint(1, 254)
+
+    return (4 * c) % 256 + c//64
+
+#rshift - shifted right 3 places
+def game_rshift(c):
+    if c == 0:
+        return random.randint(1, 254)
+
+    return (c % 8) * 32 + c//8
+
 #reverse - put the pattern backwards
 def game_reverse(c):
     if c == 0:
@@ -45,19 +59,19 @@ def game_nibbles(c):
         c = c // 2
     return 16 * r2 + r1
 
-#lshift - shifted left 2 places
-def game_lshift(c):
+#xor - XOR 10010011
+def game_xor(c):
     if c == 0:
         return random.randint(1, 254)
 
-    return (4 * c) % 256 + c//64
+    return c ^ 147
 
-#rshift - shifted right 3 places
-def game_rshift(c):
+#plus - add 35
+def game_plus35(c):
     if c == 0:
         return random.randint(1, 254)
 
-    return (c % 8) * 32 + c//8
+    return (c + 35) % 256
 
 #five - multiply by 5
 def game_five(c):
@@ -65,13 +79,6 @@ def game_five(c):
         return random.randint(1, 254)
 
     return (c * 5) % 256
-
-#multiply - Multiply left 4 bits with right 4 bits
-def game_multiply(c):
-    if c == 0:
-        return random.randint(1, 254)
-
-    return (c // 16) * (c % 16)
 
 #primes - Next prime
 def game_primes(c):
@@ -86,31 +93,10 @@ def game_primes(c):
 
     return primes[primes.index(c) + 1]
 
-#xor - XOR 10010011
-def game_xor(c):
-    if c == 0:
-        return random.randint(1, 254)
-
-    return c ^ 147
-
-#nibble_xor - XOR right 4 bits with the left 4 bits
-def game_xor_nibble(c):
-    if c == 0:
-        return random.randint(1, 254)
-
-    return c ^ (c // 16)
-
-#xorshift - Xorshift x ^= x<<1
-def game_xorshift(c):
-    if c == 0:
-        return random.randint(1, 254)
-
-    return (c ^ (c<<1)) % 256
-
 #13 - ROT13 a-z0-9!@#$%^&*()
 def game_rot13(c):
-    challenges = ' !"#$%&\'()*+,-./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-    responses  = '!"#$%&\'()*+,-./ 5678901234NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
+    challenges = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    responses  = '0123456789NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
 
     if c == 0:
         return ord(random.choice(list(challenges)))
@@ -128,15 +114,36 @@ def game_keyboard(c):
 
     return ord(responses[list(challenges).index(chr(c))])
 
-#15 - Drie letters verder in de serie "HACKERhotel" waarbij MSB hoofd/klein wisseling aangeeft
+#15 - Een letter verder in de serie "HACKERhotel" waarbij MSB hoofd/klein wisseling aangeeft
 def game_hh(c):
     challenges = 'hackerHOTEL'
-    responses  = 'kerHOTELhac'
+    responses  = 'ackerHOTELh'
 
     if c == 0:
         return ord(random.choice(list(challenges))) + 128 * random.randint(0,1)
 
     return ord(responses[list(challenges).index(chr(c & 127))]) ^ ((c & 128) // 4)
+
+#nibble_xor - XOR right 4 bits with the left 4 bits
+def game_xor_nibble(c):
+    if c == 0:
+        return random.randint(1, 254)
+
+    return c ^ (c // 16)
+
+#xorshift - Xorshift x ^= x<<1
+def game_xorshift(c):
+    if c == 0:
+        return random.randint(1, 254)
+
+    return (c ^ (c<<1)) % 256
+
+#multiply - Multiply left 4 bits with right 4 bits
+def game_multiply(c):
+    if c == 0:
+        return random.randint(1, 254)
+
+    return (c // 16) * (c % 16)
 
 
 
@@ -145,22 +152,34 @@ games = [[game_repeat,0,"Repeat"]
         ,[game_lshift,0,"Shift Left"]
         ,[game_rshift,0,"Shift Right"]
         ,[game_reverse,0,"Reverse"]
-        ,[game_nibbles,0,"Reverse nibbles"]
-        ,[game_five,0,"Times five"]
-        ,[game_multiply,0,"Multiply nibbles"]
-        ,[game_primes,0,"Primes"]
+        ,[game_nibbles,0,"Reverse Nibles"]
+
         ,[game_xor,0,"XOR"]
-        ,[game_xor_nibble,0,"XOR nibbles"]
-        ,[game_xorshift,0,"XOR shift"]
-        ,[game_rot13,0,"Rot13"]
+        ,[game_plus35,0,"Add 35"]
+        ,[game_five,0,"Times 5"]
+
+        ,[game_primes,0,"Next prime"]
+        ,[game_rot13,0,"ROT13"]
         ,[game_keyboard,0,"Keyboard shift"]
-        ,[game_hh,0,"Hacker hotel"]
-        ,[game_repeat,0,"catchall"]
+        ,[game_hh,0,"Hacker Hotel"]
+
+        ,[game_xor_nibble,0]
+        ,[game_xorshift,0]
         ]
 
-#for game in range(len(games)):
-#    print(game)
-#    for i in range(3):
-#        challenge = games[game][0](0)
-#        print(binprint(challenge),binprint(games[game][0](challenge)))
-#    print()
+if __name__ == "__main__":
+  for game in range(len(games)):
+      print(game)
+      for i in range(3):
+          challenge = games[game][0](0)
+          print(binprint(challenge),binprint(games[game][0](challenge)))
+      print()
+
+  for i in range(3):
+    challenge = games[game][0](0)
+    response  = challenge
+    for x in range(6):
+      response = games[x][0](response)
+      print("{} : {}".format(x,response))
+    print("{} -> {}".format(challenge,response))
+    print()
