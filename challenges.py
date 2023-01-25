@@ -163,8 +163,8 @@ games = [[game_repeat,0,"Repeat"]
         ,[game_keyboard,0,"Keyboard shift"]
         ,[game_hh,0,"Hacker Hotel"]
 
-        ,[game_xor_nibble,0]
-        ,[game_xorshift,0]
+        ,[game_xor_nibble,0,"XOR Nibble"]
+        ,[game_xorshift,0,"XOR shift"]
         ]
 
 if __name__ == "__main__":
