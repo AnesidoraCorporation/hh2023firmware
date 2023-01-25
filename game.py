@@ -9,6 +9,9 @@ import gamedata
 import ubinascii
 import uselect
 import sys
+import time
+
+from hh2022 import set_state, ledRGB
 
 global inventory
 global current_effects
@@ -64,6 +67,8 @@ def game(eepromstate, badge):
 
     inputstring = ""
     initgame = True
+    effecttimer = time.ticks_add(time.ticks_ms(), 500)
+    effectcounter = 0
 
     while True:
         
@@ -80,10 +85,22 @@ def game(eepromstate, badge):
         # The effects should be triggered, so no need to print them I think, unless we want to
         # maybe print the sound effect for those that do not use earplugs ;-)
         if current_effects != 0:
-            print("There is an effect:")
+            #print("There is an effect:")
             print(s(eeprom,'SPACE') + "{}".format(effects(current_effects)))
+            if time.ticks_diff(time.ticks_ms(), ledtimer) > 0:
+                effecttimer = time.ticks_add(time.ticks_ms(), 500)
+                if current_effects[1] == "<none>":
+                    effectcounter += 1
+
+                    if effectcounter % 1:
+                        ledRGB([65500,65500,65500])
+                    else:
+                        ledRGB("OFF")
+
         else:
-            pass
+            effectcounter = 0
+            set_state(0,0,1,0,0)
+            ledRGB("OFF")
 
         # Start with getting user input
 

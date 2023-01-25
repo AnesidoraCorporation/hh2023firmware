@@ -165,6 +165,7 @@ games = [[game_repeat,0,"Repeat"]
 
         ,[game_xor_nibble,0,"XOR Nibble"]
         ,[game_xorshift,0,"XOR shift"]
+        ,[game_repeat,0,"Repeat"]
         ]
 
 if __name__ == "__main__":

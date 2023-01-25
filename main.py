@@ -331,7 +331,7 @@ if errorstate > 0 or bootstate == 5:
         if time.ticks_diff(time.ticks_ms(), buttontimer) > 0:
             #print("Buttontrigger")
 
-            btns = buttonstate(address, challengecounter, attemptleds[2], attemptleds[1], attemptleds[0])
+            btns = buttonstate(address, challengecounter+1, attemptleds[2], attemptleds[1], attemptleds[0])
             address = btns[0]
             if runningonbattery == False:
                 buttontimer = time.ticks_add(time.ticks_ms(), 100)
@@ -362,7 +362,7 @@ if errorstate > 0 or bootstate == 5:
                 if debug == True:
                     print(f"Challenge is {challenges.games[challengecounter][2]}")
                 shiftregister(randno)
-                print(f"Challenge No: {challengecounter}, Attempt: {attemptcounter}, Challenge: {randno:08b}")
+                print(f"Challenge No: {challengecounter+1}, Attempt: {attemptcounter}, Challenge: {randno:08b}")
                 if debug == True:
                     print(f"Expected response: {challenges.games[challengecounter][0](randno):08b}")
 
@@ -381,13 +381,13 @@ if errorstate > 0 or bootstate == 5:
                 print("The challenge was:             {:08b}".format(randno))
                 print("The response should have been: {:08b}\n".format(challenges.games[challengecounter][0](randno)))
                 shiftregister(randno)
-                set_state(challenges.games[challengecounter][0](randno),challengecounter, attemptleds[2], attemptleds[1], attemptleds[0])
+                set_state(challenges.games[challengecounter][0](randno),challengecounter+1, attemptleds[2], attemptleds[1], attemptleds[0])
                 time.sleep_ms(7000)
                 randno = challenges.games[challengecounter][0](0)
                 ledRGB('GREEN', not runningonbattery)
                 shiftregister(randno)
                 address = 0
-                print(f"Challenge No: {challengecounter}, Attempt: {attemptcounter}, Challenge: {randno:08b}")
+                print(f"Challenge No: {challengecounter+1}, Attempt: {attemptcounter}, Challenge: {randno:08b}")
                 if runningonbattery == True:
                     idletimer = time.ticks_add(time.ticks_ms(), 60000)
                 
@@ -398,7 +398,7 @@ if errorstate > 0 or bootstate == 5:
                 if address == challenges.games[challengecounter][0](randno):
                     print("Found challenge")
                     address = 0
-                    if challengecounter > 13:
+                    if challengecounter > 14:
                         time.sleep_ms(1000)
                         shiftregister(0)
                         ledRGB('OFF', not runningonbattery)
