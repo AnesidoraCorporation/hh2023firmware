@@ -439,13 +439,17 @@ if errorstate > 0 or bootstate == 5 or (bootstate == 7 and runningonbattery):
             if common.get_state(13):
 
                 if common.get_state(114) == False and crocodileinput == b"This is badge type 0\n":
-                    common.update_state(114, eepromstate)
+                    common.update_state(114, eeprom)
+                    print("Found type 0")
                 elif common.get_state(115) == False and crocodileinput == b"This is badge type 1\n":
-                    common.update_state(115, eepromstate)
+                    common.update_state(115, eeprom)
+                    print("Found type 1")
                 elif common.get_state(116) == False and crocodileinput == b"This is badge type 2\n":
-                    common.update_state(116, eepromstate)
+                    common.update_state(116, eeprom)
+                    print("Found type 2")
                 elif common.get_state(117) == False and crocodileinput == b"This is badge type 3\n":
-                    common.update_state(117, eepromstate)
+                    common.update_state(117, eeprom)
+                    print("Found type 3")
 
 
             if common.get_state(110):
