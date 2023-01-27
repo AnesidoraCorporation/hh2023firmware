@@ -116,7 +116,7 @@
                   },
                   "[M]atches" : {
                     "desc" : "Matches, these might come in handy some time!",
-                    "action_mask" : 4,
+                    "action_mask" : 20,
                     "item_nr" : 12
                   }
                 }
@@ -186,17 +186,17 @@
                 "action_str1" : "I'm so glad to see you. I need your help in defeating the \"bad spirit\". \nIt is gaining power and I can not retain him much longer. As you may\nknow, we are brothers and we are burried in a cave at the mines of\nSar-e-sang. \n\nThe Lapis Lazulli tablets were gifts for our passage to the spirit \nworld. When John Dee removed those tablets from our\nburrial site, we were trapped in these tablets and could not make\nthe passage to the spirit world.\n\nIt is our time now. But we need the tablets to be in the cave and\nour physical connection to this world needs to be cut. This can be\ndone in the cave.\n\nDo you want me to teleport you to the cave?\n",
                 "action_str2" : "yes",
                 "action_msg" : "Please enter the teleporter beam now.",
-                "action_state" : 15,
+                "action_state" : 126,
                 "state_desc" : "Ready to teleport"
               },
               "[T]eleporter beam" : {
                 "desc" : "Beam me up, scotty!",
-                "visible_acl" : 15,
+                "visible_acl" : 126,
                 "action_mask" : 1,
                 "o" : {
                   "[M]ines of Ser-e-Sang" : {
                     "desc" : "You were teleported to the mines.",
-                    "visible_acl" : 15,
+                    "visible_acl" : 126,
                     "action_mask" : 1,
                     "o" : {
                       "[S]tones" : {
@@ -233,8 +233,9 @@
                                 "o" : {
                                   "[T]orch" : {
                                     "desc" : "A torch to light the room.",
-                                    "action_mask" : 4,
+                                    "action_mask" : 20,
                                     "action_item" : 12,
+                                    "action_msg" : "The room is now lit.",
                                     "action_state" : 17,
                                     "state_desc" : "Lit the torch"
                                   },
