@@ -330,24 +330,24 @@ def read_state(eepromstate):
 offering   = -1
 
 # Some state bits are used from outside the game, these are:
-# 110   set to 1 by FW if badge UUID mod 4 == 0
-# 111   set to 1 by FW if badge UUID mod 4 == 1
-# 112   set to 1 by FW if badge UUID mod 4 == 2
-# 113   set to 1 by FW if badge UUID mod 4 == 3
-# 114   <free>
-# 115   <free>
-# 116   set to 1 by FW if badge is in the dark
-# 117   set to 1 by FW after one normal-hot-normal cycle of the temp sensor
-# 118   set to 1 by FW after a second normal-hot-normal cycle of the temp sensor
-# 119   read by FW to enable the magnetic maze game (only allow the game when this bit is 1)
-# #120   set to 1 by FW after the maze game is succesfully finished ==> changed to 125
-# 121   <free>
-# 122   H turns green, set to 1 by FW after reaching level 6 of Bastet dictates
-# 123   A turns green, set to 1 by FW after Lanyard code has been entered correctly
-# 124   C turns green, set to 1 by FW after Connected to other 3 badge types / personas (UUID MOD 4)
-# 125   K turns green, set to 1 by FW after entrance to dungeon is enabled by completing magnetic maze
-# 126   E turns green, set to 1 by game after access to the tunnel is granted
-# 127   R turns green, set to 1 by game Was able to leave the hotel (need to solve puzzles in secret room to get antidote)
+# 110   set to 1 by FW if badge UUID mod 8 == 0
+# 111   set to 1 by FW if badge UUID mod 8 == 1
+# 112   set to 1 by FW if badge UUID mod 8 == 2
+# 113   set to 1 by FW if badge UUID mod 8 == 3
+# 114   set to 1 by FW if b2b communication with UUID 0 
+# 115   set to 1 by FW if b2b communication with UUID 1
+# 116   set to 1 by FW if b2b communication with UUID 2
+# 117   set to 1 by FW if b2b communication with UUID 3
+# 118   
+# 119   
+# 120   set to 1 by FW if evil pcb trace is cut
+# 121   set to 1 by FW if good pcb trace is cut
+# 122   set to 1 by FW when challenge-response game done
+# 123   set to 1 by FW when all room-codes entered
+# 124   set to 1 by FW when ticker tape code entered
+# 125   set to 1 by FW when having connected to all 4 badge types (including loopback :-))
+# 126   set by GAME when part I adventure done
+# 127   set by GAME when part II adventure done
 
 
 

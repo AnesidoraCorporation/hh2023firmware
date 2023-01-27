@@ -11,7 +11,11 @@ import uselect
 import sys
 import time
 
-from hh2022 import set_state, ledRGB
+from hh2022 import set_state, ledRGB, shiftregister
+from machine import Pin, UART
+
+SAOSDAPIN       = 26
+SAOSCLPIN       = 27
 
 global inventory
 global current_effects
@@ -43,6 +47,11 @@ def game(eepromstate, badge):
         elif badge % 4 == 3:
             update_state(113,eepromstate)
 
+    GOOD = Pin(SAOSDAPIN, Pin.IN)
+    EVIL = Pin(SAOSCLPIN, Pin.IN)
+
+    uart = UART(0, baudrate=300, bits=8, parity=None, stop=1, tx=Pin(28), rx=Pin(29))
+
     ### Read the EEPROM data
     #f = pkg_resources.resource_stream(__name__, "hotel.bin")
     #with open('hotel.bin', 'rb') as f:
@@ -69,6 +78,9 @@ def game(eepromstate, badge):
     initgame = True
     effecttimer = time.ticks_add(time.ticks_ms(), 500)
     effectcounter = 0
+    uarttimer = time.ticks_add(time.ticks_ms(), 10000)
+    iostate_old = 0
+    iotimer = time.ticks_add(time.ticks_ms(), 1000)
 
     while True:
         
@@ -80,27 +92,87 @@ def game(eepromstate, badge):
     #        print(s(eeprom,'CONGRATS'))
     #        exit()
 
-        
+        if get_state(114) and get_state(115) and get_state(116) and get_state(117) and get_state(125) == False:
+            update_state(125, eepromstate)
+
+        if time.ticks_diff(time.ticks_ms(), uarttimer) > 0:
+            uarttimer = time.ticks_add(time.ticks_ms(), 10000)
+
+            crocodileinput = uart.readline()
+            #print(crocodileinput) 
+
+            if get_state(114) == False and crocodileinput == b"This is badge type 0\n":
+                update_state(114, eepromstate)
+            elif get_state(115) == False and crocodileinput == b"This is badge type 1\n":
+                update_state(115, eepromstate)
+            elif get_state(116) == False and crocodileinput == b"This is badge type 2\n":
+                update_state(116, eepromstate)
+            elif get_state(117) == False and crocodileinput == b"This is badge type 3\n":
+                update_state(117, eepromstate)
+
+
+            if get_state(110):
+                uart.write(b"This is badge type 0\n")
+            elif get_state(111):
+                uart.write(b"This is badge type 1\n")
+            elif get_state(112):
+                uart.write(b"This is badge type 2\n")
+            elif get_state(113):
+                uart.write(b"This is badge type 3\n")
+
+        if time.ticks_diff(time.ticks_ms(), iotimer) > 0:
+
+            if get_state(120) == False and EVIL.value() == True:
+                update_state(120, eepromstate)
+
+            if get_state(121) == False and GOOD.value() == True:
+                update_state(121, eepromstate)
+
+
+            iostate = 0
+            if get_state(120):
+                iostate = iostate | 0b10000000 # Evil trace cut
+            if get_state(121):
+                iostate = iostate | 0b01000000 # Good trace cut
+            if get_state(122):
+                iostate = iostate | 0b00100000 # Challenge Response game
+            if get_state(123):
+                iostate = iostate | 0b00010000 # Location Game
+
+            if get_state(124):
+                iostate = iostate | 0b00001000 # Punch tape entered
+            if get_state(125):
+                iostate = iostate | 0b00000100 # 4 badges connected
+            if get_state(126):
+                iostate = iostate | 0b00000010 # Part 1 done
+            if get_state(127):
+                iostate = iostate | 0b00000001 # Part 2 done
+
+            if iostate != iostate_old:
+                shiftregister(iostate)
+                iostate_old = iostate
+            
+            iotimer = time.ticks_add(time.ticks_ms(), 1000)
 
         # The effects should be triggered, so no need to print them I think, unless we want to
         # maybe print the sound effect for those that do not use earplugs ;-)
         if current_effects != 0:
             #print("There is an effect:")
             print(s(eeprom,'SPACE') + "{}".format(effects(current_effects)))
-            if time.ticks_diff(time.ticks_ms(), ledtimer) > 0:
-                effecttimer = time.ticks_add(time.ticks_ms(), 500)
-                if current_effects[1] == "<none>":
-                    effectcounter += 1
+        #    if time.ticks_diff(time.ticks_ms(), effecttimer) > 0:
+        #        effecttimer = time.ticks_add(time.ticks_ms(), 500)
+        #        if current_effects[1] == "<none>":
+        #            effectcounter += 1
 
-                    if effectcounter % 1:
-                        ledRGB([65500,65500,65500])
-                    else:
-                        ledRGB("OFF")
+        #            if effectcounter % 1:
+        #                ledRGB([65500,65500,65500])
+        #            else:
+        #                ledRGB("OFF")
 
-        else:
-            effectcounter = 0
-            set_state(0,0,1,0,0)
-            ledRGB("OFF")
+        #else:
+        #    effectcounter = 0
+        #    set_state(0,0,1,0,0)
+        #    ledRGB("OFF")
 
         # Start with getting user input
 

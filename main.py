@@ -7,6 +7,7 @@ from hh2022 import *
 import challenges
 import memory
 import game
+import common
 
 import sys
 import uselect
@@ -102,7 +103,7 @@ if btns[2] == 1:
     print("Total reset")
     machine.soft_reset()
 
-
+common.read_state(eeprom)
 
 bootstate = eeprom.readfrom_mem(80,42,1,addrsize=eepromsize)
 bootstate = bootstate[0]
@@ -222,6 +223,9 @@ if bootstate == 0xFF or errorstate > 0:
     eeprom.writeto_mem(80, 0, writebuffer,addrsize=eepromsize)
 
     time.sleep_ms(1000)
+
+if errorstate == 0 and common.get_state(123) == False:
+    common.update_state(123,eeprom)
 
 
 username = eeprom.readfrom_mem(80,2,32,addrsize=eepromsize)
@@ -398,16 +402,20 @@ if errorstate > 0 or bootstate == 5:
                 if address == challenges.games[challengecounter][0](randno):
                     print("Found challenge")
                     address = 0
-                    if challengecounter > 14:
-                        time.sleep_ms(1000)
-                        shiftregister(0)
-                        ledRGB('OFF', not runningonbattery)
-                        set_state(0,0,0,0,0)
-                        #Pin(BAT_ENPIN, Pin.IN) 
-                        break
+                    
 
                     randno = 0
                     shiftregister(randno)
+
+            if challengecounter > 14:
+                #time.sleep_ms(1000)
+                shiftregister(0)
+                ledRGB('OFF', not runningonbattery)
+                set_state(0,0,0,0,0)
+                if common.get_state(122) == False:
+                    common.update_state(122, eeprom)
+                #Pin(BAT_ENPIN, Pin.IN) 
+                break
         
         if idle == True and time.ticks_diff(time.ticks_ms(), idletimer) > 0:
             if runningonbattery or bootstate == 5:
@@ -651,6 +659,9 @@ The instructions are:
                     
                     if datamem[255] == 42:
                         eeprom.writeto_mem(80, 42, b'\x2A',addrsize=eepromsize)
+                        time.sleep_ms(1000)
+                        if common.get_state(124) == False:
+                            common.update_state(124, eeprom)
                         break
 
                 if address > 255:

@@ -22,7 +22,7 @@ OUTLOADPIN      = 25
 SAOSDAPIN       = 26
 SAOSCLPIN       = 27
 SAOTX           = 28
-SAORT           = 29
+SAORX           = 29
 
 
 # Enable running on battery when started by SW3 press
