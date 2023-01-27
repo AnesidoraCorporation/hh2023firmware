@@ -1,5 +1,5 @@
 import machine
-from machine import Pin, SoftI2C, SoftSPI
+from machine import Pin, SoftI2C, SoftSPI, UART
 import time
 import random
 
@@ -267,9 +267,14 @@ else:
     idletimer = time.ticks_add(time.ticks_ms(), 5000)
 idle = True
 
+if bootstate == 5 or (bootstate == 7 and runningonbattery):
+    uart = UART(0, baudrate=300, bits=8, parity=None, stop=1, tx=Pin(28), rx=Pin(29))
+
 inputstring = ""
 
-if errorstate > 0 or bootstate == 5:
+uarttimer = time.ticks_add(time.ticks_ms(), 10000)
+
+if errorstate > 0 or bootstate == 5 or (bootstate == 7 and runningonbattery):
     
     randno = 0
     challengecounter = 0
@@ -424,6 +429,33 @@ if errorstate > 0 or bootstate == 5:
                 set_state(0,0,0,0,0)
                 Pin(BAT_ENPIN, Pin.IN) 
                 break
+
+        if time.ticks_diff(time.ticks_ms(), uarttimer) > 0 and (bootstate == 5 or bootstate == 7):
+            uarttimer = time.ticks_add(time.ticks_ms(), 10000)
+
+            crocodileinput = uart.readline()
+            #print(crocodileinput) 
+
+            if common.get_state(13):
+
+                if common.get_state(114) == False and crocodileinput == b"This is badge type 0\n":
+                    common.update_state(114, eepromstate)
+                elif common.get_state(115) == False and crocodileinput == b"This is badge type 1\n":
+                    common.update_state(115, eepromstate)
+                elif common.get_state(116) == False and crocodileinput == b"This is badge type 2\n":
+                    common.update_state(116, eepromstate)
+                elif common.get_state(117) == False and crocodileinput == b"This is badge type 3\n":
+                    common.update_state(117, eepromstate)
+
+
+            if common.get_state(110):
+                uart.write(b"This is badge type 0\n")
+            elif common.get_state(111):
+                uart.write(b"This is badge type 1\n")
+            elif common.get_state(112):
+                uart.write(b"This is badge type 2\n")
+            elif common.get_state(113):
+                uart.write(b"This is badge type 3\n")
 
     
 ledRGB([65000,0,0], not runningonbattery)

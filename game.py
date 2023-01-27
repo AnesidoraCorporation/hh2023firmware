@@ -137,6 +137,20 @@ def game(eepromstate, badge):
             if iostate != iostate_old:
                 shiftregister(iostate)
                 iostate_old = iostate
+
+            badgestate = 0
+            if get_state(113):
+                iostate = iostate | 0b00001000 # Seen badge 3
+            if get_state(112):
+                iostate = iostate | 0b00000100 # Seen badge 2
+            if get_state(111):
+                iostate = iostate | 0b00000010 # Seen badge 1
+            if get_state(110):
+                iostate = iostate | 0b00000001 # Seen badge 0
+
+            set_state(0,badgestate,0,0,0)
+
+
             
             iotimer = time.ticks_add(time.ticks_ms(), 1000)
 
