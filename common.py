@@ -82,9 +82,10 @@ led_effects   = ['<none>',
 
 global current_effects
 def effects(e):
-    sound = e>>5
-    led   = e&31
-    return "[" + sound_effects[sound] + "," + led_effects[led] + "]\n"
+    #sound = e>>5
+    #led   = e&31
+    #return "[" + sound_effects[sound] + "," + led_effects[led] + "]\n"
+    return ""
 
 
 # Action constants, defining the bits in 'action_mask'
