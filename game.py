@@ -111,7 +111,7 @@ def game(eepromstate, badge):
                 if get_state(118) == False and get_state(119) == False and get_state(121):
                     update_state(119, eepromstate)
 
-                if get_state(119) and get_state(121) and get_state(127) == False:
+                if get_state(119) and get_state(120) and get_state(127) == False:
                     update_state(127, eepromstate)
 
 
