@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from common import *
-from literals import *
+#from literals import *
 #import argparse
 
 #import pkg_resources
@@ -19,17 +19,6 @@ SAOSCLPIN       = 27
 
 global inventory
 global current_effects
-
-####################
-# not needed in FW #
-# vv from here  vv #
-####################
-#parser = argparse.ArgumentParser(description='The Hacker Hotel 2020 badge adventure')
-#parser.add_argument("-d", default=False, action="store_true", help="Enable Debugging Output")
-#parser.add_argument("-t", default=False, action="store_true", help="Print game tree and logic")
-#parser.add_argument("-b", default=0, help="Set the badge type")
-
-#args = parser.parse_args()
 
 def game(eepromstate, badge):
 
@@ -57,22 +46,12 @@ def game(eepromstate, badge):
     #with open('hotel.bin', 'rb') as f:
     #eeprom = f.read()
     eeprom = ubinascii.a2b_base64(gamedata.gamedata)
-    ####################
-    # ^^  to here   ^^ #
-    ####################
 
     ### Start of the game
     loc             = []
     loc_offset,loc_action_mask,loc_children,loc_parent = loc2offset(eeprom,loc)
     current_effects = read_byte_field(eeprom,loc_offset,'effects')
     inventory = []
-
-    ####################
-    # not needed in FW #
-    # vv from here  vv #
-    ####################
-    if False:
-        print_tree(eeprom,[],[-1],0,inventory)
 
     inputstring = ""
     initgame = True
@@ -83,10 +62,6 @@ def game(eepromstate, badge):
     iotimer = time.ticks_add(time.ticks_ms(), 1000)
 
     while True:
-        
-    ####################
-    # ^^  to here   ^^ #
-    ####################
 
     #    if loc == [0,1]:
     #        print(s(eeprom,'CONGRATS'))
@@ -122,11 +97,22 @@ def game(eepromstate, badge):
 
         if time.ticks_diff(time.ticks_ms(), iotimer) > 0:
 
-            if get_state(120) == False and EVIL.value() == True:
-                update_state(120, eepromstate)
+            if get_state(18):
 
-            if get_state(121) == False and GOOD.value() == True:
-                update_state(121, eepromstate)
+                if get_state(120) == False and EVIL.value() == True:
+                    update_state(120, eepromstate)
+
+                if get_state(121) == False and GOOD.value() == True:
+                    update_state(121, eepromstate)
+
+                if get_state(118) == False and get_state(119) == False and get_state(120):
+                    update_state(118, eepromstate)
+                
+                if get_state(118) == False and get_state(119) == False and get_state(121):
+                    update_state(119, eepromstate)
+
+                if get_state(119) and get_state(121) and get_state(127) == False:
+                    update_state(127, eepromstate)
 
 
             iostate = 0
@@ -156,9 +142,9 @@ def game(eepromstate, badge):
 
         # The effects should be triggered, so no need to print them I think, unless we want to
         # maybe print the sound effect for those that do not use earplugs ;-)
-        if current_effects != 0:
+        #if current_effects != 0:
             #print("There is an effect:")
-            print(s(eeprom,'SPACE') + "{}".format(effects(current_effects)))
+        #    print(s(eeprom,'SPACE') + "{}".format(effects(current_effects)))
         #    if time.ticks_diff(time.ticks_ms(), effecttimer) > 0:
         #        effecttimer = time.ticks_add(time.ticks_ms(), 500)
         #        if current_effects[1] == "<none>":
@@ -220,27 +206,27 @@ def game(eepromstate, badge):
             # vv from here  vv #
             ####################
 
-                elif inp[0] == "tree":
-                    print_tree(eeprom,[],loc,0,inventory)
+            #    elif inp[0] == "tree":
+            #        print_tree(eeprom,[],loc,0,inventory)
 
 
-                elif inp[0] == "debug":
-                    DEBUG = not DEBUG
-                    print("Debugging: {}".format(DEBUG))
+            #    elif inp[0] == "debug":
+            #        DEBUG = not DEBUG
+            #        print("Debugging: {}".format(DEBUG))
 
-                elif cmd == 's':
-                    if len(inp) > 1:
-                        update_state(int(inp[1]),eepromstate)
-                    print("The game state is now:")
-                    for i in range(status_bits//8):
-                        print("0x{:02X}:{:08b}".format(i,game_state[i]))
+            #    elif cmd == 's':
+            #        if len(inp) > 1:
+            #            update_state(int(inp[1]),eepromstate)
+            #        print("The game state is now:")
+            #        for i in range(status_bits//8):
+            #            print("0x{:02X}:{:08b}".format(i,game_state[i]))
 
 
-                elif cmd == 'i':
-                    if DEBUG:
-                        if len(inp) == 3:
-                            inventory = [[int(inp[1]),inp[2]]]
-                    print("Inventory is now {}".format(inventory))
+            #    elif cmd == 'i':
+            #        if DEBUG:
+            #            if len(inp) == 3:
+            #                inventory = [[int(inp[1]),inp[2]]]
+            #        print("Inventory is now {}".format(inventory))
 
 
             ####################
@@ -486,6 +472,7 @@ def game(eepromstate, badge):
                                     response = input(s(eeprom,'RESPONSE'))
                                     if unify(read_string_field(eeprom,obj_offset,'action_str2')) != unify(response):
                                         print(s(eeprom,'INCORRECT'))
+                                        time.sleep_ms(10000)
                                         continue
                                 update_state(read_byte_field(eeprom,obj_offset,'action_state'),eepromstate)
                                 print("{}".format(read_string_field(eeprom,obj_offset,'action_msg')))

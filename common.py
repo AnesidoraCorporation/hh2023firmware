@@ -1,4 +1,4 @@
-import literals
+#import literals
 from lit_offsets import *
 import time
 
