@@ -76,14 +76,15 @@ def game(eepromstate, badge):
             crocodileinput = uart.readline()
             #print(crocodileinput) 
 
-            if get_state(114) == False and crocodileinput == b"This is badge type 0\n":
-                update_state(114, eepromstate)
-            elif get_state(115) == False and crocodileinput == b"This is badge type 1\n":
-                update_state(115, eepromstate)
-            elif get_state(116) == False and crocodileinput == b"This is badge type 2\n":
-                update_state(116, eepromstate)
-            elif get_state(117) == False and crocodileinput == b"This is badge type 3\n":
-                update_state(117, eepromstate)
+            if get_state(13):
+                if get_state(114) == False and crocodileinput == b"This is badge type 0\n":
+                    update_state(114, eepromstate)
+                elif get_state(115) == False and crocodileinput == b"This is badge type 1\n":
+                    update_state(115, eepromstate)
+                elif get_state(116) == False and crocodileinput == b"This is badge type 2\n":
+                    update_state(116, eepromstate)
+                elif get_state(117) == False and crocodileinput == b"This is badge type 3\n":
+                    update_state(117, eepromstate)
 
 
             if get_state(110):
