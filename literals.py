@@ -1,14 +1,9 @@
 literals = {'HELP':'Welcome to the "Escape from Hacker Hotel!!!" challenge.\r\n\
 \r\n\
-You are locked in the hotel, just like servants of the pharaohs\r\n\
-were locked in the Pyramids with their masters.\r\n\
-You will need to hack yourself a way out of the hotel before\r\n\
-the end of the weekend (when the hotel will be closed up\r\n\
-forever, WHOAHAHAHAHAHAHA)!\r\n\
+You were able to revive the Anisedora tablet. Let\'s\r\n\
+explore what it can do.\r\n\
 \r\n\
 h or ?      show this help\r\n\
-a           show the hieroglyph alphabet\r\n\
-w           who am i, your avatar\r\n\
 x           exit to the previous location\r\n\
 e <room>    enter the given room\r\n\
 l           look around the room\r\n\
@@ -29,24 +24,13 @@ the Reception.\r\n\
 \r\n\
 [Please note that some output is in UTF-8. However, all user input\r\n\
 should be entered in ASCII only]',
-'ALPHABET': 'A = 𓄿   B = 𓂾   C = 𓎡   D = 𓂧   E = 𓆄\r\n\
-\r\n\
-F = 𓆑   G = 𓎼   H = 𓉔   I = 𓆄   J = 𓆓\r\n\
-\r\n\
-K = 𓎡   L = 𓃭   M = 𓅓   N = 𓈖   O = 𓅱\r\n\
-\r\n\
-P = 𓊪   Q = 𓈎   R = 𓂋   S = 𓋴   T = 𓏏\r\n\
-\r\n\
-U = 𓅱   V = 𓆑   W = 𓅱   X = 𓋴   Y = 𓆄𓆄\r\n\
-\r\n\
-Z = 𓊃 ',
 'LOCATION':'\r\nLocation: ',
 'SPACE':' ',
 'LF':'\r\n\r\n\r\n\r\n',
 'COMMA':', ',
 'PROMPT':'? ',
 'QUIT':'Thank you for staying, you can check out any time you like,\r\nbut you may never leave!',
-'LOOK':'I see the following: ',
+'LOOK':'I see the following:\r\n',
 'DONTSEE':'I don\'t see that!',
 'CANTLOOK':'You can\'t look inside ',
 'CANTENTER':'You can\'t enter that location.',
@@ -71,12 +55,6 @@ Z = 𓊃 ',
 'IDDQDMSG':'IDDQD (for testing purposes only, remove from final code!!!)',
 'CONGRATS':'CONGRATULATIONS!!!\r\nThe spell has been broken and you found your way out of the hotel.',
 'CANTGIVE':'You can\'t give this item to this person.',
-'HELLO':'Hello, my name is ',
-'ANUBIS':'Anubis',
-'BES':'Bes',
-'KHONSU':'Khonsu',
-'THOTH':'Thoth',
-'PLEASED':', I\'m pleased to meet you!',
 'NOTPOSSIBLE':'Sorry, that is not possible',
 'ERROR':'Hmm... something is wrong, please contact someone from badge.team!',
 'PRIEST':'I\'m sorry my child, I\'m a little blind. Can you\r\nplease tell me how many times you kneeled and\r\nwhich element you will bring to the Pyramid?\r\n\r\n[entry format: <number> <element>]',
@@ -84,7 +62,7 @@ Z = 𓊃 ',
 'BADOFFERING':'You call that an offering, you should be ashamed of yourself!',
 'YOURPART':'Your part of the access code is ',
 'IDLE':'Press ? for game help!',
-'SALT':'HäckérHøtèl2020',
+'SALT':'HäckérHøtèl2023',
 'HEXPREFIX':'0x',
 'DIGITS':'0123456789ABCDEF',
 }

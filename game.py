@@ -193,12 +193,12 @@ def game(eepromstate, badge):
                     show_help(eeprom)
 
 
-                if cmd == 'a':
-                    show_alphabet(eeprom)
+#                if cmd == 'a':
+#                    show_alphabet(eeprom)
 
 
-                if cmd == 'w':
-                    who_am_i(eeprom)
+#                if cmd == 'w':
+#                    who_am_i(eeprom)
 
 
             ####################
@@ -206,20 +206,20 @@ def game(eepromstate, badge):
             # vv from here  vv #
             ####################
 
-            #    elif inp[0] == "tree":
-            #        print_tree(eeprom,[],loc,0,inventory)
+#                elif inp[0] == "tree":
+#                    print_tree(eeprom,[],loc,0,inventory)
 
 
-            #    elif inp[0] == "debug":
-            #        DEBUG = not DEBUG
-            #        print("Debugging: {}".format(DEBUG))
+#                elif inp[0] == "debug":
+#                    DEBUG = not DEBUG
+#                    print("Debugging: {}".format(DEBUG))
 
-            #    elif cmd == 's':
-            #        if len(inp) > 1:
-            #            update_state(int(inp[1]),eepromstate)
-            #        print("The game state is now:")
-            #        for i in range(status_bits//8):
-            #            print("0x{:02X}:{:08b}".format(i,game_state[i]))
+#                elif cmd == 's':
+#                    if len(inp) > 1:
+#                        update_state(int(inp[1]),eepromstate)
+#                    print("The game state is now:")
+#                    for i in range(status_bits//8):
+#                        print("0x{:02X}:{:08b}".format(i,game_state[i]))
 
 
             #    elif cmd == 'i':

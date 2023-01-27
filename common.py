@@ -109,7 +109,7 @@ xor_key_teaser = b'\x00' * 8
 xor_key_game   = b'\x74\xbf\xfa\x54\x1c\x96\xb2\x26'
 xor_key_teaser = b'\x1e\xeb\xd6\x8b\xc0\xc2\x0a\x61'
 flash_size     = 32768
-boiler_plate   = b'Hacker Hotel 2020 by badge.team ' # boiler_plate must by 32 bytes long
+boiler_plate   = b'Hacker Hotel 2023 by Anisedora  ' # boiler_plate must by 32 bytes long
 
 
 def read_byte(eeprom,offset,key=1):
@@ -266,8 +266,7 @@ def look_around(eeprom, loc_offset, loc_parent, loc_children,inventory):
     sep = ""
     if loc_parent[1] != 0xffff and object_visible(eeprom,loc_parent[1]):
         name = read_string_field(eeprom,loc_parent[1],'name')
-        print("{}".format(name),end='')
-        sep = s(eeprom,'COMMA')
+        print("  {}".format(name))
     for i in range(len(loc_children)):
         if object_visible(eeprom,loc_children[i][1]):
             item = read_byte_field(eeprom,loc_children[i][1],'item_nr')
@@ -279,8 +278,7 @@ def look_around(eeprom, loc_offset, loc_parent, loc_children,inventory):
                         break
             if  not in_inventory:
                 name = read_string_field(eeprom,loc_children[i][1],'name')
-                print("{}{}".format(sep,name),end='')
-                sep = s(eeprom,'COMMA')
+                print("  {}".format(name))
     print()
 
 def show_help(eeprom):
@@ -338,8 +336,8 @@ offering   = -1
 # 115   set to 1 by FW if b2b communication with UUID 1
 # 116   set to 1 by FW if b2b communication with UUID 2
 # 117   set to 1 by FW if b2b communication with UUID 3
-# 118   
-# 119   
+# 118   set to 1 by FW when the evil pcb trace was cut first
+# 119   set to 1 by FW when the good pcb trace was cut first
 # 120   set to 1 by FW if evil pcb trace is cut
 # 121   set to 1 by FW if good pcb trace is cut
 # 122   set to 1 by FW when challenge-response game done
