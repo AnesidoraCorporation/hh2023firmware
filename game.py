@@ -106,14 +106,20 @@ def game(eepromstate, badge):
                 if get_state(121) == False and GOOD.value() == True:
                     update_state(121, eepromstate)
 
-                if get_state(118) == False and get_state(119) == False and get_state(120):
-                    update_state(118, eepromstate)
-                
-                if get_state(118) == False and get_state(119) == False and get_state(121):
-                    update_state(119, eepromstate)
+                if get_state(127) == False:
+                    # Set state 118 if the evil spirit was released first
+                    if get_state(118) == False and get_state(119) == False and get_state(120):
+                        update_state(118, eepromstate)
+                    
+                    # Set state 119 if the evil spirit was released first
+                    if get_state(118) == False and get_state(119) == False and get_state(121):
+                        update_state(119, eepromstate)
 
-                if get_state(119) and get_state(120) and get_state(127) == False:
-                    update_state(127, eepromstate)
+                    # When both lines are cut in the right order, set the winner state
+                    # Also clear state 119 to make the good spirit disappear again :-)
+                    if get_state(119) and get_state(120):
+                        update_state(128+119, eepromstate)
+                        update_state(127, eepromstate)
 
 
             iostate = 0
