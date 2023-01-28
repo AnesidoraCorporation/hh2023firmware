@@ -91,7 +91,7 @@ def game(eepromstate, badge):
                 r = x % 2
 
                 x = x // 2
-                s = x % 2
+                st = x % 2
 
                 x = x // 2
                 e = x % 2
@@ -102,13 +102,13 @@ def game(eepromstate, badge):
                     a = 255
                     d = 15
                     r = 1
-                    s = 1
+                    st = 1
                     e = 1
                 else:
                     a = 0
                     d = 0
                     r = 0
-                    s = 0
+                    st = 0
                     e = 0
 
             elif victoryeffect == 2:
@@ -116,10 +116,10 @@ def game(eepromstate, badge):
                 a = victorycounter % 255
                 d = a // 16
                 r = (a // 4) % 2
-                s = (a // 2) % 2
+                st = (a // 2) % 2
                 e = a % 2
 
-            set_state(a,d,r,s,e)
+            set_state(a,d,r,st,e)
 
 
         if get_state(114) and get_state(115) and get_state(116) and get_state(117) and get_state(125) == False:
