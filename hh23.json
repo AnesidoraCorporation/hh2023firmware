@@ -11,7 +11,7 @@
             "action_mask" : 8,
             "action_str1" : "Welcome to the hotel. The key to the secret cellar can only be handed\nout to the right people. Please tell me the access code.\n",
             "action_str2" : "4242",
-            "action_msg" : "Thank you. I see you have access to the key. And apologies\nfor this procedure, but I guess you are aware of the necessity \nof these precautions, as there have been some incidents with\nthe artefact we found in their cellar during the last reconstruction\nof the hotel.\n\nHere is the key, good luck with your quest!\n",
+            "action_msg" : "Thank you. I see you have access to the key. And apologies\nfor this procedure, but I guess you are aware of the necessity \nof these precautions, as there have been some incidents with\nthe artefact we found in the cellar during the last reconstruction\nof the hotel.\n\nHere is the key, good luck with your quest!\n",
             "action_state" : 10,
             "state_desc" : "Provided punchcard code"
           },
@@ -61,15 +61,15 @@
         "action_mask" : 5,
         "o" : {
           "[C]ellar" : {
-            "desc" : "A strairway is going down into the cellar\n",
+            "desc" : "The cellar is filled with old computers. Some bookcases with books and\nboxes. One box somehow draws your attention.\n",
             "action_mask" : 1,
             "o" : {
               "[B]ox" : {
-                "desc" : "A strairway is going down into the cellar\n",
+                "desc" : "On one of the shelves, there is a boxed labelled \"John Dee\"\n",
                 "action_mask" : 6,
                 "o" : {
                   "[D]iary of John Dee" : {
-                    "desc" : "A strairway is going down into the cellar\n",
+                    "desc" : "This diary was written by John Dee. There are some pages marked.\nBut it looks funny. It doesn't fell 100% right.\n",
                     "action_mask" : 6,
                     "o" : {
                       "[D]ecember 29th, 1562" : {
@@ -122,19 +122,20 @@
                 }
               },
               "Book[c]ase" : {
-                "desc" : "The book case is filled with books.\nLots of computer books, but also quite a few\nbooks about religion and spiritual matters.\nWhat a weird combination...\n"
+                "desc" : "The book case is filled with books.\nLots of computer books, but also quite a few\nbooks about religion and spiritual matters.\nWhat a weird combination...\n",
+                "action_mask" : 4
               },
               "[N]otebook" : {
                 "desc" : "This notebook seems to contain some project notes.\n",
                 "action_mask" : 36,
-                "action_msg" : "This notebook seems to contain some project notes.\n"
+                "action_msg" : "There are many written notes in the notebook.\nYou start reading some of them.\n\n... in our research of the mysterious Lapis Lazuli tablets, we traced\nthem back to the John Dee society. Apparently he stubled upon a\ncave in the Sar-e-Sang mines in the Mughal empire (the mines are\nlocated in are area that currently belongs to the Kingdom of\nAfghanistan)...\n\n... Later, we discovered that the cave in which John Dee found the\nLapis Lazuli was a burial site. Burried there are twin brothers. These\nbrothers were like two opposites. One being kind, gentle and helpful.\nThe other one mean and selfish. During their life, they somehow\nkept each other in balance while they ruled over the area together. ...\n\n... We performed experiments with the small tablets. It is clear they\nsomehow have a form of intelligence. If only we could find a way to\ninteract with them. ...\n\n... Today we were succesful in attaching our modern computer\ntechnology to the old Lapis Lazuli tablets. Communicating with the\ntwo spirits in the tablets is like a miracle. There is so much potential\nin this technology. ...\n\n... We are stunned with what these spirits can do. The potential\nseems endless. As this could be abused if fallen into the wrong hands.\nNotes on our discoveries will be kept in the safe. ...\n\n... It seems the \"evil\" spirit is somehow gaining strength over the\n\"good\" spirit. There are more  and more bad things happening around\nus. We really need to restore balance. ...\n"
               },
               "[S]afe" : {
                 "desc" : "This looks like a safe from the 16th century\n",
                 "open_acl" : 12,
                 "open_acl_msg" : "The safe is closed, use the safe to unlock it.\n",
                 "open_acl_msg_effects" : 33,
-                "action_mask" : 18,
+                "action_mask" : 22,
                 "action_str1" : "The dial on the safe is showing 2107. Which number is\nthe dial showing after you entered the codes?\n",
                 "action_str2" : "5655",
                 "action_msg" : "You entered the correct code for the safe!\n",
@@ -152,12 +153,12 @@
                 }
               },
               "[P]uzzle" : {
-                "desc" : "For this puzzle we took some events from the future. We\nlearned about bug bounty programs and found 5 interesting\ncases. Please link each hacker to the company that they\nhacked and received a bounty from, what kind of attck they\nused and how high the bug bounty payout was.\n\nThe hackers were:\n- Cyph3rPunk\n- H4x0rist\n- Pwn3r\n- S3cNinj4\n- Xpl0it3r\n\nThe companies were:\n- EclipseTech\n- HyperionCorp\n- InfiniTech\n- NexusTech\n- QuantumAI\n\nThe hacks were:\n- Cross-site scripting\n- Buffer overflow\n- File inclusion vulnerabilities\n- Remote code execution\n- SQL injection\n\nThe bounties were:\n- € 1.250\n- € 2.500\n- € 5.000\r\n- € 7.500\r\n- € 12.500\r\n\nCollect the 4 parts of the hints first. When you have the \nsolution, \"use\" this puzzle.\n",
+                "desc" : "For this puzzle we took some events from the future. We\nlearned about bug bounty programs and found 5 interesting\ncases. Please link each hacker to the company that they\nhacked and received a bounty from, what kind of attack they\nused and how high the bug bounty payout was.\n\nCollect the 4 parts of the hints first. When you have the \nsolution, \"use\" this puzzle.\n",
                 "visible_acl" : 13,
                 "action_mask" : 20,
                 "action_acl" : 125,
                 "action_acl_msg" : "You do not possess all the hints yet!\n",
-                "action_str1" : "To solve this puzzle, provide a space seperated list of the combinations.\nEach combination must be entered as a comma seperated list of the\nfirst letter of the nickname of the hacker, the first letter of the company\nthey hacked, the first letter of the method they used and then the bug\nbounty they received. Sort these combinations by the nicknames of the\nhackers.\n\nAn example input is:\nC,E,F,12500 H,H,B,2500 P,I,S,5000 S,N,C,7500 X,Q,R,1250\n\nWhat is your solution?\n",
+                "action_str1" : "To solve this puzzle, provide a space seperated list of the combinations.\nEach combination must be entered as a comma seperated list of the\nfirst letter of the nickname of the hacker, the first letter of the company\nthey hacked, the first letter of the method they used and then the bug\nbounty they received. Sort these combinations by the nicknames of the\nhackers.\n\nAn example input is:\nC,E,F,12500 H,H,B,2500 P,I,S,5000 S,N,C,7500 X,Q,R,1250\n\nThe hackers were:\n- Cyph3rPunk\n- H4x0rist\n- Pwn3r\n- S3cNinj4\n- Xpl0it3r\n\nThe companies were:\n- EclipseTech\n- HyperionCorp\n- InfiniTech\n- NexusTech\n- QuantumAI\n\nThe hacks were:\n- Cross-site scripting\n- Buffer overflow\n- File inclusion vulnerabilities\n- Remote code execution\n- SQL injection\n\nThe bounties were:\n- € 1.250\n- € 2.500\n- € 5.000\r\n- € 7.500\r\n- € 12.500\r\n\nWhat is your solution?\n",
                 "action_str2" : "C,N,S,7500 H,H,R,5000 P,Q,C,1250 S,E,F,2500 X,I,B,12500",
                 "action_msg" : "Good to see you have put your strengths together and solved this puzzle.\n",
                 "action_state" : 14,
@@ -183,7 +184,7 @@
                 "desc" : "Dummy",
                 "visible_acl" : 14,
                 "action_mask" : 8,
-                "action_str1" : "I'm so glad to see you. I need your help in defeating the \"bad spirit\". \nIt is gaining power and I can not retain him much longer. As you may\nknow, we are brothers and we are burried in a cave at the mines of\nSar-e-sang. \n\nThe Lapis Lazulli tablets were gifts for our passage to the spirit \nworld. When John Dee removed those tablets from our\nburrial site, we were trapped in these tablets and could not make\nthe passage to the spirit world.\n\nIt is our time now. But we need the tablets to be in the cave and\nour physical connection to this world needs to be cut. This can be\ndone in the cave.\n\nDo you want me to teleport you to the cave?\n",
+                "action_str1" : "I'm so glad to see you. I need your help in defeating the \"bad spirit\". \nIt is gaining power and I can not retain him much longer. As you may\nknow, we are brothers and we are burried in a cave at the mines of\nSar-e-sang. \n\nThe Lapis Lazulli tablets were gifts for our passage to the spirit \nworld. When John Dee removed those tablets from our\nburrial site, we were trapped in these tablets and could not make\nthe passage to the spirit world.\n\nIt is our time now. But we need the tablets to be in the cave and\nour physical connection to this world needs to be cut. This can be\ndone in the cave.\n\nDo you want me to teleport you to the mines?\n",
                 "action_str2" : "yes",
                 "action_msg" : "Please enter the teleporter beam now.\n",
                 "action_state" : 126,
@@ -209,7 +210,7 @@
                         "action_mask" : 1,
                         "o" : {
                           "[W]allpainting" : {
-                            "desc" : "###############################################################################\n->   .   .      #                       #         #         #         #       #\n### ##### # ##### ######### ### ####### # ####### # ### # ### ####### ##### ###\n#       # # #     #         # #  .   .# # # #       #   #     # #       #     #\n# ##### # # # ##### ######### ####### # ### # ############# ### # ##### # ### #\n#     # # # # #     #       #       # #     # #         #   #     #     # # # #\n# ##### # # ### ##### ##### # ####### ####### # ####### ##### ### ####### # # #\n# #   # # #   # #   # #     #   #     #   #   #   #   # #.   .#   #       #   #\n# # # # # ##### # # # ##### ### # ##### ### ### # # # # # ####### # ###########\n#   #.# #.    # # # #.   .# #   # #       #   # #   # # # #     # # #         #\n##### # ##### # # # ##### # # ### ##### # # # # ##### # # ##### ### # # ##### #\n#     #     #   # #     # #     #.   .  # # # #.   .# # #     #     # #.   .# #\n# ############### ##### # # ### ######### # # ##### # # ##### # ##### ##### # #\n# # #             #   # # #   #           ###     # # #     # # #         # # #\n# # # ####### # ##### # # ######### ####### # ##### # # ##### # # ### ##### # #\n# # # #       #     #   # #     #   #         #     # #  .   .# # #   #     # #\n### # # ##### ##### # ### # ##### ### ####### # ##### # ####### # # ### ##### #\n#     #     # #   # #.  #.#       #   #     # # #     # #   #     #   # #     #\n########### # ### # ##### ######### ####### # # ####### ### # ######### ##### #\n# #   #   # #     #         #       #       # #.   .#       # #       #.   .# #\n# ### # # # ################# ####### # ##### ##### ######### # ### ####### ###\n#       #                     #       #           #           #   #          ->\n###############################################################################\n",
+                            "desc" : "###############################################################################\n->   .   .      #                       #         #         #         #       #\n### ##### # ##### ######### ### ####### # ####### # ### # ### ####### ##### ###\n#       # # #     #         # #  .   .# # # #       #   #     # #       #     #\n# ##### # # # ##### ######### ####### # ### # ############# ### # ##### # ### #\n#     # # # # #     #       #       # #     # #         #   #     #     # # # #\n# ##### # # ### ##### ##### # ####### ####### # ####### ##### ### ####### # # #\n# #   # # #   # #   # #     #   #     #   #   #   #   # #.   .#   #       #   #\n# # # # # ##### # # # ##### ### # ##### ### ### # # # # # ####### # ###########\n#   #.# #.    # # # #.   .# #   # #       #   # #   # # # #     # # #         #\n##### # ##### # # # ##### # # ### ##### # # # # ##### # # ##### ### # # ##### #\n#     #     #   # #     # #     #.   .  # # # #.   .# # #     #     # #.   .# #\n# ############### ##### # # ### ######### # # ##### # # ##### # ##### ##### # #\n# # #             #   # # #   #           ###     # # #     # # #         # # #\n# # # ####### # ##### # # ######### ####### # ##### # # ##### # # ### ##### # #\n# # # #       #     #   # #     #   #         #     # #  .   .# # #   #     # #\n### # # ##### ##### # ### # ##### ### ####### # ##### # ####### # # ### ##### #\n#     #     # #   # #.  #.#       #   #     # # #     # #   #     #   # #     #\n########### # ### # ##### ######### ####### # # ####### ### # ######### ##### #\n# #   #   # #     #         #       #       # #.   .#       # #       #.   .# #\n# ### # # # ################# ####### # ##### ##### ######### # ### ####### ###\n#       #                     #       #           #           #   #          ->\n###############################################################################",
                             "action_mask" : 4
                           },
                           "[F]lat stones" : {
@@ -267,32 +268,20 @@
                                         "action_state" : 0,
                                         "state_desc" : ""
                                       },
-                                      "Tube to the Left sarcophagus" : {
-                                        "visible_acl" : 248
-                                      },
                                       "[L]eft sarcophagus" : {
                                         "desc" : "This is a really impressive sarcophagus. There are a lot\nof beutiful carvings in the stone. There is also a connecting tube\nto a sort of diamond shaped stone.\n",
                                         "visible_acl" : 248,
                                         "action_mask" : 4
-                                      },
-                                      "Broken tube to the Left sarcophagus" : {
-                                        "visible_acl" : 120
                                       },
                                       "Opened [L]eft sarcophagus" : {
                                         "desc" : "The sarcophagus has opened up. Wait, does it really look\nlike some sort of ghost is now rising from it?\n",
                                         "visible_acl" : 120,
                                         "action_mask" : 4
                                       },
-                                      "Tube to the Right sarcophagus" : {
-                                        "visible_acl" : 249
-                                      },
                                       "[R]ight sarcophagus" : {
                                         "desc" : "This is a really impressive sarcophagus. There are a lot\nof beutiful carvings in the stone. There is also a connecting tube\nto a sort of diamond shaped stone.\n",
                                         "visible_acl" : 249,
                                         "action_mask" : 4
-                                      },
-                                      "Broken tube to the Right sarcophagus" : {
-                                        "visible_acl" : 121
                                       },
                                       "Opened [R]ight sarcophagus" : {
                                         "desc" : "The sarcophagus has opened up. Wait, does it really look\nlike some sort of ghost is now rising from it?\n",
@@ -307,10 +296,10 @@
                                       "[E]vil spirit" : {
                                         "visible_acl" : 118,
                                         "action_mask" : 8,
-                                        "action_msg" : "You fool, you set me free first, my so-called \"Good\" brother's spirit\nwill be stuck in the tablets for good. I will grow in strength over time\nand now there is nothing or no one that can stop me.\n\nWHOHAHAHAHAHAHA!\n"
+                                        "action_msg" : "You failed!\n\nYou set me free first, my so-called \"Good\" brother's spirit will be\nstuck in the tablets for good. I will grow in strength over time\nand now there is nothing or no one that can stop me.\n\nWHOHAHAHAHAHAHA!\n"
                                       },
-                                      "[L]apis Lazuli Sculpture" : {
-                                        "desc" : "Both spirits are now freed from the tablets, congratulations!\n\nA lapsis lazuli sclpture of you has materialized for you as a gift.\n",
+                                      "Lapis Lazuli [S]culpture" : {
+                                        "desc" : "Both spirits are now freed from the tablets, congratulations!\nA lapis lazuli sculpture of you has materialized for you as a gift.\nSeek out the priestess with a golden necklace adorned with a \nlapis lazuli gemstone in the venue to receive it!",
                                         "visible_acl" : 127,
                                         "action_mask" : 4
                                       }
