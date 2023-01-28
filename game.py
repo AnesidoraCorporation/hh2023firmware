@@ -70,7 +70,7 @@ def game(eepromstate, badge):
         if time.ticks_diff(time.ticks_ms(), victorytimer) > 0 and get_state(127):
             victorytimer = time.ticks_add(time.ticks_ms(), 100)
             victorycounter += 1
-            if victorycounter % 100:
+            if victorycounter % 100 == 0:
                 victoryeffect += 1
                 if victoryeffect > 2:
                     victoryeffect = 0
@@ -82,12 +82,12 @@ def game(eepromstate, badge):
 
                 a = x % 255
                 d = 0
-                x = (x // 256) % 15
+                tmp = (tmp // 256) % 15
                 for i in range(4):
-                    d = 2 * d + (x % 2)
-                    x = x // 2
+                    d = 2 * d + (tmp % 2)
+                    tmp = tmp // 2
 
-                x = x // 4
+                x = x // 8192
                 r = x % 2
 
                 x = x // 2
