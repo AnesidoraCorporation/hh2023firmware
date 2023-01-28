@@ -55,6 +55,9 @@ def game(eepromstate, badge):
 
     inputstring = ""
     initgame = True
+    victorytimer = time.ticks_add(time.ticks_ms(), 100)
+    victorycounter = 0
+    victoryeffect = 0
     effecttimer = time.ticks_add(time.ticks_ms(), 500)
     effectcounter = 0
     uarttimer = time.ticks_add(time.ticks_ms(), 10000)
@@ -63,9 +66,61 @@ def game(eepromstate, badge):
 
     while True:
 
-    #    if loc == [0,1]:
-    #        print(s(eeprom,'CONGRATS'))
-    #        exit()
+        # Some LED effects for finishing the adventure :-)
+        if time.ticks_diff(time.ticks_ms(), victorytimer) > 0:
+            victorytimer = time.ticks_add(time.ticks_ms(), 100)
+                victorycounter += 1
+                if victorycounter % 100:
+                    victoryeffect += 1
+                    if victoryeffect > 2:
+                        victoryeffect = 0
+                  
+                if victoryeffect == 0:
+                    # circle
+                    x = 3 * 2 ** (victorycounter % 15)
+                    x = (x % 65535) + (x // 65536)
+
+                    a = x % 255
+                    d = 0
+                    x = (x // 256) % 15
+                    for i in range(4):
+                        d = 2 * d + (x % 2)
+                        x = x // 2
+
+                    x = x // 4
+                    r = x % 2
+
+                    x = x // 2
+                    s = x % 2
+
+                    x = x // 2
+                    e = x % 2
+
+                elif victoryeffect == 1:
+                    # flash
+                    if (victorycounter // 4) % 2 == 0:
+                        a = 255
+                        d = 15
+                        r = 1
+                        s = 1
+                        e = 1
+                    else:
+                        a = 0
+                        d = 0
+                        r = 0
+                        s = 0
+                        e = 0
+
+                elif victoryeffect == 2:
+                    # rotate left
+                    a = victorycounter % 255
+                    d = a // 16
+                    r = (a // 4) % 2
+                    s = (a // 2) % 2
+                    e = a % 2
+
+                set_state(a,d,r,s,e)
+
 
         if get_state(114) and get_state(115) and get_state(116) and get_state(117) and get_state(125) == False:
             update_state(125, eepromstate)
