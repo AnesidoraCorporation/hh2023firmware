@@ -328,6 +328,47 @@ def read_state(eepromstate):
 
 offering   = -1
 
+# DEMO ADVENTURE:
+# ===============
+# 
+# Game states
+# ===========
+# 1 Thanked the doorman
+# 2     RFID card offered
+# 3 Placed bulb in light
+# 4 Turned light on
+# 5 Entered the correct code of the safe
+# 6 Talked to the doorman
+
+# Objects
+# =======
+# 1 Lightbulb
+# 2 Keycard
+# 3 Five dollar bill
+
+
+# ANISEDORA ADVENTURE
+# ===================
+
+# Game states
+# ===========
+# 10  provided right code to receptionist
+# 11  Unlocked the door to the cellar
+# 12  Unlocked the safe
+# 13  Read the secret notebook
+# 14  Solved logiquiz
+# 15  Ready to teleport --> moved to #126
+# 16  Stones on flat stones
+# 17  Lit the torch
+# 18  Spoken the spell
+
+# Objects
+# =======
+# 10  Doorkey to anesidora cellar
+# 11  Paper Ribbon
+# 12  Matches
+# 13  Stones
+
 # Some state bits are used from outside the game, these are:
 # 110   set to 1 by FW if badge UUID mod 8 == 0
 # 111   set to 1 by FW if badge UUID mod 8 == 1
