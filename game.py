@@ -63,6 +63,7 @@ def game(eepromstate, badge):
     uarttimer = time.ticks_add(time.ticks_ms(), 10000)
     iostate_old = 0
     iotimer = time.ticks_add(time.ticks_ms(), 1000)
+    tmp = 0
 
     while True:
 
