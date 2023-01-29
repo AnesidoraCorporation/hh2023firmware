@@ -71,56 +71,34 @@ def game(eepromstate, badge):
         if time.ticks_diff(time.ticks_ms(), victorytimer) > 0 and get_state(127):
             victorytimer = time.ticks_add(time.ticks_ms(), 100)
             victorycounter += 1
-            if victorycounter % 100 == 0:
+            if victorycounter % 50 == 0:
                 victoryeffect += 1
                 if victoryeffect > 2:
                     victoryeffect = 0
                 
             if victoryeffect == 0:
                 # circle
-                x = 3 * 2 ** (victorycounter % 15)
-                x = (x % 65535) + (x // 65536)
+                x = 3 << (victorycounter % 15)
+                x = (x & 32767) + (x >> 15)
 
-                a = x % 255
-                d = 0
-                tmp = (tmp // 256) % 15
-                for i in range(4):
-                    d = 2 * d + (tmp % 2)
-                    tmp = tmp // 2
-
-                x = x // 8192
-                r = x % 2
-
-                x = x // 2
-                st = x % 2
-
-                x = x // 2
-                e = x % 2
+                tmp = x >> 8
+                x = x & 255
+                for i in range(7):
+                    if i<4:
+                        x = x + ((tmp & 1) << (15 - i))
+                    else:
+                        x = x + ((tmp & 1) << (14 - i))
+                    tmp = tmp >> 1
 
             elif victoryeffect == 1:
                 # flash
-                if (victorycounter // 4) % 2 == 0:
-                    a = 255
-                    d = 15
-                    r = 1
-                    st = 1
-                    e = 1
-                else:
-                    a = 0
-                    d = 0
-                    r = 0
-                    st = 0
-                    e = 0
+                x = 0xffff * ((victorycounter >> 2) & 1)
 
             elif victoryeffect == 2:
-                # rotate left
-                a = victorycounter % 255
-                d = a // 16
-                r = (a // 4) % 2
-                st = (a // 2) % 2
-                e = a % 2
+                # rotate right
+                x = 0x8080 >> ( victorycounter % 8 ) 
 
-            set_state(a,d,r,st,e)
+            set_state(x&255,x>>12,(x>>10)&1,(x>>9)&1,(x>>8)&1)
 
 
         if get_state(114) and get_state(115) and get_state(116) and get_state(117) and get_state(125) == False:
@@ -152,7 +130,7 @@ def game(eepromstate, badge):
             elif get_state(113):
                 uart.write(b"This is badge type 3\n")
 
-        if time.ticks_diff(time.ticks_ms(), iotimer) > 0:
+        if time.ticks_diff(time.ticks_ms(), iotimer) > 0 and get_state(127) == False:
 
             if get_state(18):
 
