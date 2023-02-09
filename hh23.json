@@ -166,19 +166,23 @@
               },
               "Hint[1]" : {
                 "desc" : "The bug bounty paid by NexusTech is equal to the sum of the bug bounties \nthat were paid for the File inclusion vulnerability and the remote code execution.\n\nEclipseTech paid a bounty for a File inclusion vulnerability\n",
-                "visible_acl" : 114
+                "visible_acl" : 114,
+                "action_mask" : 4
               },
               "Hint[2]" : {
                 "desc" : "The hackers who have a nickname of the same length received a total of € 20.000\r\n\nCross-site scripting was used on a company that does not have Tech in it's name.\n",
-                "visible_acl" : 115
+                "visible_acl" : 115,
+                "action_mask" : 4
               },
               "Hint[3]" : {
                 "desc" : "Cyph3rPunk used a SQL Injection and did not receive\nthe lowest bounty paid. \nH4x0rist did not receive the highest bug bounty.\n",
-                "visible_acl" : 116
+                "visible_acl" : 116,
+                "action_mask" : 4
               },
               "Hint[4]" : {
                 "desc" : "The bounty received by S3cNinj4 was twice as high as the bounty that was paid\nfor the Cross-site scripting vulnerability.\n\nHyperionCorp had a bounty of € 5.000\r\n",
-                "visible_acl" : 117
+                "visible_acl" : 117,
+                "action_mask" : 4
               },
               "[G]ood spirit" : {
                 "desc" : "Dummy",
