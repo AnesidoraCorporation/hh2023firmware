@@ -264,7 +264,7 @@ else:
 if runningonbattery == False:
     idletimer = time.ticks_add(time.ticks_ms(), 30000)
 else:
-    idletimer = time.ticks_add(time.ticks_ms(), 5000)
+    idletimer = time.ticks_add(time.ticks_ms(), 15000)
 idle = True
 
 if bootstate == 5 or (bootstate == 7 and runningonbattery):

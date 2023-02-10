@@ -234,6 +234,8 @@ def game(eepromstate, badge):
 
             if len(inp) == 0:
                 pass
+            elif inp[0] == ' ':
+                pass
             else:
 
                 inp = inp.lower().split()
@@ -280,8 +282,10 @@ def game(eepromstate, badge):
 
 
                 elif cmd == 'q':
-                    print(s(eeprom,'QUIT'))
-                    break
+                    inp = input(s(eeprom,'SURE')).lower()
+                    if inp == 'y' or inp == 'yes':
+                        print(s(eeprom,'QUIT'))
+                        break
 
 
                 elif cmd == 'l':
