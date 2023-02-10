@@ -295,15 +295,25 @@
                                       "[G]ood spirit" : {
                                         "visible_acl" : 119,
                                         "action_mask" : 8,
-                                        "action_msg" : "You have exceeded my expectations, finally my spirit is freed. You may\nnow set my evil twin brother's spirit free too, I will guide him like I have \nalways done. Thank you so much for helping me, there will be a small \ntoken of my appreciation for you after finishing this last step.\n"
+                                        "action_msg" : "You have exceeded my expectations, finally my spirit is freed. You may\nnow set my evil twin brother's spirit free too, I will guide him like I have \nalways done. "
                                       },
                                       "[E]vil spirit" : {
                                         "visible_acl" : 118,
                                         "action_mask" : 8,
                                         "action_msg" : "You failed!\n\nYou set me free first, my so-called \"Good\" brother's spirit will be\nstuck in the tablets for good. I will grow in strength over time\nand now there is nothing or no one that can stop me.\n\nWHOHAHAHAHAHAHA!\n"
                                       },
+                                      "[E]vil spirit " : {
+                                        "desc" : "Dummy",
+                                        "visible_acl" : 19,
+                                        "action_mask" : 8,
+                                        "action_str1" : "I understand the trouble I caused you all and will now leave\nfor the spirit world together with my good brother.\n\nThank you so much for helping us, there will be a small \ntoken of my appreciation for you after finishing this last step.\n\nDo you want to receive this token?\n",
+                                        "action_str2" : "yes",
+                                        "action_msg" : "Please enter the teleporter beam now.\n",
+                                        "action_state" : 127,
+                                        "state_desc" : "Both spirits are now freed from the tablets, congratulations!\nA lapis lazuli sculpture of you has materialized for you as a gift.\nSeek out the priestess with a golden necklace adorned with a \nlapis lazuli gemstone in the venue to receive it!\n"
+                                      },
                                       "Lapis Lazuli [S]culpture" : {
-                                        "desc" : "Both spirits are now freed from the tablets, congratulations!\nA lapis lazuli sculpture of you has materialized for you as a gift.\nSeek out the priestess with a golden necklace adorned with a \nlapis lazuli gemstone in the venue to receive it!",
+                                        "desc" : "Seek out the priestess with a golden necklace adorned with a \nlapis lazuli gemstone in the venue to receive it!\n",
                                         "visible_acl" : 127,
                                         "action_mask" : 4
                                       }

@@ -361,6 +361,7 @@ offering   = -1
 # 16  Stones on flat stones
 # 17  Lit the torch
 # 18  Spoken the spell
+# 19  Cut the traces in the right order
 
 # Objects
 # =======

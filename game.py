@@ -153,7 +153,7 @@ def game(eepromstate, badge):
                     # Also clear state 119 to make the good spirit disappear again :-)
                     if get_state(119) and get_state(120):
                         update_state(128+119, eepromstate)
-                        update_state(127, eepromstate)
+                        update_state(19, eepromstate)
 
 
             iostate = 0
