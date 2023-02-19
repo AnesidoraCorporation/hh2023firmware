@@ -129,7 +129,7 @@ if bootstate == 0xFF or errorstate > 0:
         if load.value() == 1:
             print("Entering value load stage. Use the SER and CLK buttons to set the I/O leds. Then press load again")
             ledtimer = time.ticks_add(time.ticks_ms(), 500)
-            loadtimer = time.ticks_add(time.ticks_ms(), 60000)
+            loadtimer = time.ticks_add(time.ticks_ms(), 120000)
             loadstate = True
             while time.ticks_diff(time.ticks_ms(), loadtimer) < 0:
 
@@ -311,7 +311,7 @@ if errorstate > 0 or bootstate == 5 or (bootstate == 7 and runningonbattery):
                 print("If you require a hint, press h\n")
                 if bootstate == 5:
                     print("To return to the bootmenu, press q\n")
-                print(f"Challenge No: {challengecounter}, Attempt: {attemptcounter}, Challenge: {randno:08b}\n")
+                print(f"Challenge No: {challengecounter+1}, Attempt: {attemptcounter}, Challenge: {randno:08b}\n")
 
 
         if time.ticks_diff(time.ticks_ms(), ledtimer) > 0:

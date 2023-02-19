@@ -17,6 +17,7 @@ g <i> <p>   give item <i> to person <p>\r\n\
 r <o>       read object <o>\r\n\
 u <o>       use object <o>\r\n\
 u <i> <o>   use item <i> on object <o>\r\n\
+q           quit to menu\r\n\
 \r\n\
 Every object has a single letter identifier enclosed in brackets. So \r\n\
 when you see "The [R]eception" in the game, you can use "e r" to enter\r\n\
